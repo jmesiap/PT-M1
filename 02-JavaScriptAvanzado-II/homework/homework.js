@@ -7,7 +7,16 @@ function counter() {
   // ejemplo: const newCounter = counter();
   // newCounter(); // 1
   // newCounter(); // 2
+
+  var i= 0;
+  return function(){
+     i++;
+     return i;
+  }
 }
+const newCounter = counter();
+newCounter();
+
 
 function cacheFunction(cb) {
   // Usa closures para crear un caché para la función cb.
