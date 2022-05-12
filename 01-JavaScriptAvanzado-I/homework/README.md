@@ -164,10 +164,10 @@ Considerando el siguiente código, ¿Cuál sería el orden en el que se muestra 
 
 ```javascript
 function printing() {
-   console.log(1);
-   setTimeout(function() { console.log(2); }, 1000);
-   setTimeout(function() { console.log(3); }, 0);
-   console.log(4);
+   console.log(1);                                       // Primero
+   setTimeout(function() { console.log(2); }, 1000);     // Cuarto
+   setTimeout(function() { console.log(3); }, 0);        // Tercero
+   console.log(4);                                       // Segundo
 }
 
 printing();
