@@ -11,7 +11,6 @@
 // search: Busca un valor dentro de la lista. Puede recibir un valor o una función. Si no hubiera resultados, devuelve null.
 function Node(value){ this.value = value; this.next = null;}
 function LinkedList() { this.head = null;}
-//let infor = {}; 
 
 LinkedList.prototype.add = function(value){
   const nodo = new Node(value);
