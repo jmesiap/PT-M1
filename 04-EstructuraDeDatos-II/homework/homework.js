@@ -9,14 +9,78 @@
 // Ej:         Head --> 1
 // remove():   Head --> null y devuelve 1
 // search: Busca un valor dentro de la lista. Puede recibir un valor o una función. Si no hubiera resultados, devuelve null.
+function Node(value){ this.value = value; this.next = null;}
+function LinkedList() { this.head = null;}
+//let infor = {}; 
 
-function LinkedList() {
-
+LinkedList.prototype.add = function(value){
+  const nodo = new Node(value);
+  if (!this.head){ this.head = nodo;}
+  else{ let nposi = this.head; 
+  while (nposi.next){ nposi = nposi.next;}
+  nposi.next = nodo;
+  return nodo
+  }
 }
 
-function Node(value){
+LinkedList.prototype.search = function(data){
+  let actual = this.head;  
+  
+  if (!actual){ return null; }  // Si la lista enlazada esta vacia
+  
+  while(actual){ 
 
+    if (typeof(actual.value)==='function'){
+      let nValor = actual.value()
+      if (nValor === data){
+    //      console.log(nValor)
+          return nValor}
+      }   
+    
+  if (typeof(actual.value)==='object'){
+        let nValor = Object.values(actual.value)
+        for (i=0; i < nValor.length; i++){
+            if (nValor[i] === data){
+                //console.log(nValor[i])
+                return nValor[i]
+            }
+        }  
+     }
+  }
+  
+  if (actual.value === data){
+      //console.log(actual.data)
+      return actual.value;
+  }
+  
+  actual = actual.next; 
+  //console.log('No se encontro el dato buscado')
+  return null;
+
+} 
+
+LinkedList.prototype.remove = function(){
+  let actual = this.head;
+  let anterior = null;
+    
+    // Si el primer nodo es vacio corta el proceso retornando null 
+    if (!actual){this.head = null; return null;}
+    
+     // Si solo existe un nodo en la lista enlazada
+    if (actual.next===null){ this.head = null; return actual.value;}
+
+    //Cuando hay mas de un nodo en la lista enlazada 
+    while(actual.next){  // Mientras exita un siguiente noto ingresa al bloque while
+        anterior = actual // Almacena la posicion actual del nodo en otra variable llamada anterior
+        actual = actual.next; // avanza al siguiente nodo
+    } // Cuando el siguiente nodo esta vacio, ya no ingresa al bloque while
+
+    anterior.next = null; // Asigna el valor null el nodo siguiente, partiendo de la posicion actual almacenada en la variable anterior
+    return actual.value; // devuele el valor eliminado
 }
+
+
+
 
 // Hash Table( ver información en: https://es.wikipedia.org/wiki/Tabla_hash)
 // Una Hash table contiene un arreglo de "contenedores" o buckets donde puede guardar información.
