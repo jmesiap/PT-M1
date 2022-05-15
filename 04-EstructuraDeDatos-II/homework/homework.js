@@ -22,41 +22,6 @@ LinkedList.prototype.add = function(value){
   }
 }
 
-LinkedList.prototype.search = function(data){
-  let actual = this.head;  
-  
-  if (!actual){ return null; }  // Si la lista enlazada esta vacia
-  
-  while(actual){ 
-
-    if (typeof(actual.value)==='function'){
-      let nValor = actual.value()
-      if (nValor === data){
-    //      console.log(nValor)
-          return nValor}
-      }   
-    
-  if (typeof(actual.value)==='object'){
-        let nValor = Object.values(actual.value)
-        for (i=0; i < nValor.length; i++){
-            if (nValor[i] === data){
-                //console.log(nValor[i])
-                return nValor[i]
-            }
-        }  
-     }
-  }
-  
-  if (actual.value === data){
-      //console.log(actual.data)
-      return actual.value;
-  }
-  
-  actual = actual.next; 
-  //console.log('No se encontro el dato buscado')
-  return null;
-
-} 
 
 LinkedList.prototype.remove = function(){
   let actual = this.head;
@@ -76,6 +41,25 @@ LinkedList.prototype.remove = function(){
 
     anterior.next = null; // Asigna el valor null el nodo siguiente, partiendo de la posicion actual almacenada en la variable anterior
     return actual.value; // devuele el valor eliminado
+}
+
+LinkedList.prototype.search = function(rValor){
+  let actual = this.head;  
+if (!actual){ return null; }  // Si la lista enlazada esta vacia
+
+while(actual){ 
+  if (actual.value === rValor){
+
+    return actual.value;
+  }
+  if (typeof(rValor)==='function'){
+     if (rValor(actual.value)){
+        return actual.value;
+      }
+  } 
+actual = actual.next; 
+}
+return null;
 }
 
 
