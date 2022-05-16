@@ -49,8 +49,7 @@ if (!actual){ return null; }  // Si la lista enlazada esta vacia
 
 while(actual){ 
   if (actual.value === rValor){
-
-    return actual.value;
+      return actual.value;
   }
   if (typeof(rValor)==='function'){
      if (rValor(actual.value)){
@@ -78,8 +77,40 @@ return null;
 //    - Retornar dicho valor.
 
 function HashTable() {
-
+  this.numBuckets = 35;  
+  this.tablaHash = new Array (this.numBuckets);
 }
+
+HashTable.prototype.hash = function(key){
+  let hash = 0;
+    for (let i = 0; i < key.length; i++) {
+      hash += key.charCodeAt(i);
+    }
+    return hash % this.tablaHash.length;
+}
+
+HashTable.prototype.set = function(key, valor){
+    if (typeof(key) != 'string') throw TypeError ('Keys must be strings');
+    var pos = this.hash(key);
+    if (!this.tablaHash[pos]){
+        this.tablaHash[pos] = {};
+    }
+    this.tablaHash[pos][key] = valor;
+}
+
+HashTable.prototype.get = function(key){
+    var pos = this.hash(key);
+    return this.tablaHash[pos][key];
+}
+
+HashTable.prototype.hasKey = function(key){
+  let pos = this.hash(key);
+  return this.tablaHash[pos].hasOwnProperty(key);
+}
+
+
+
+
 
 
 // No modifiquen nada debajo de esta linea
